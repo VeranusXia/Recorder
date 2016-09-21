@@ -81,6 +81,8 @@ namespace Recorder
         {
             this.gameLastChunkTime = int.Parse(lastChunkJson["availableSince"].ToString());
             this.gameLastChunkDuration = int.Parse(lastChunkJson["duration"].ToString());
+            this.gameEndChunkId = int.Parse(lastChunkJson["chunkId"].ToString());
+            this.gameEndKeyFrameId  = int.Parse(lastChunkJson["keyFrameId"].ToString());
         }
         public void setEndOfGameStats(byte[] content)
         {
