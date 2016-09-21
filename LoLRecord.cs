@@ -25,12 +25,12 @@ namespace Recorder
         public int gameEndStartupChunkId;
         public int gameLength;
         public int gameClientAddLag;
-        public int gameELOLevel;
+        //public int gameELOLevel;
         public char[] gamePlatform;
         public char[] observerEncryptionKey;
-        public char[] gameCreateTime;
-        public char[] gameStartTime;
-        public char[] gameEndTime;
+        //public char[] gameCreateTime;
+        //public char[] gameStartTime;
+        //public char[] gameEndTime;
         public int gameDelayTime;
         public int gameLastChunkTime;
         public int gameLastChunkDuration;
@@ -48,8 +48,8 @@ namespace Recorder
             this.gameId = ulong.Parse(jObject["gameId"].ToString());
             this.gamePlatform = jObject["platformId"].ToString().ToCharArray();
             this.gameChunkTimeInterval = int.Parse(metaJson["chunkTimeInterval"].ToString());
-            this.gameStartTime = metaJson["startTime"].ToString().ToCharArray();
-            this.gameEndTime = metaJson["endTime"].ToString().ToCharArray();
+            //this.gameStartTime = metaJson["startTime"].ToString().ToCharArray();
+            //this.gameEndTime = metaJson["endTime"].ToString().ToCharArray();
             this.gameEndChunkId = int.Parse(metaJson["lastChunkId"].ToString());
             this.gameEndKeyFrameId = int.Parse(metaJson["lastKeyFrameId"].ToString());
             this.gameEndStartupChunkId = int.Parse(metaJson["endStartupChunkId"].ToString());
@@ -58,8 +58,8 @@ namespace Recorder
             this.gameStartChunkId = int.Parse(metaJson["startGameChunkId"].ToString());
             this.gameLength = int.Parse(metaJson["gameLength"].ToString());
             this.gameClientAddLag = int.Parse(metaJson["clientAddedLag"].ToString());
-            this.gameELOLevel = int.Parse(metaJson["interestScore"].ToString());
-            this.gameCreateTime = metaJson["createTime"].ToString().ToCharArray();
+            //this.gameELOLevel = int.Parse(metaJson["interestScore"].ToString());
+            //this.gameCreateTime = metaJson["createTime"].ToString().ToCharArray();
             this.allocateChunkAndKeyFrameSpaces();
         }
         private void allocateChunkAndKeyFrameSpaces()
@@ -127,19 +127,19 @@ namespace Recorder
             binaryWriter.Write(this.gameClientAddLag);
             binaryWriter.Write(this.gameChunkTimeInterval);
             binaryWriter.Write(this.gameKeyFrameTimeInterval);
-            binaryWriter.Write(this.gameELOLevel);
+            //binaryWriter.Write(this.gameELOLevel);
             binaryWriter.Write(this.gameLastChunkTime);
             binaryWriter.Write(this.gameLastChunkDuration);
             binaryWriter.Write(this.gamePlatform.Length);
             binaryWriter.Write(this.gamePlatform);
             binaryWriter.Write(this.observerEncryptionKey.Length);
             binaryWriter.Write(this.observerEncryptionKey);
-            binaryWriter.Write(this.gameCreateTime.Length);
-            binaryWriter.Write(this.gameCreateTime);
-            binaryWriter.Write(this.gameStartTime.Length);
-            binaryWriter.Write(this.gameStartTime);
-            binaryWriter.Write(this.gameEndTime.Length);
-            binaryWriter.Write(this.gameEndTime);
+            //binaryWriter.Write(this.gameCreateTime.Length);
+            //binaryWriter.Write(this.gameCreateTime);
+            //binaryWriter.Write(this.gameStartTime.Length);
+            //binaryWriter.Write(this.gameStartTime);
+            //binaryWriter.Write(this.gameEndTime.Length);
+            //binaryWriter.Write(this.gameEndTime);
             binaryWriter.Write(this.lolVersion.Length);
             binaryWriter.Write(this.lolVersion);
             binaryWriter.Write(this.hasResult);
@@ -192,25 +192,28 @@ namespace Recorder
         }
         public void writeResultToFile(string path)
         {
-
-            System.IO.FileStream fileStream = new System.IO.FileStream(path, System.IO.FileMode.Create, System.IO.FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fileStream);
-
-
-            System.IO.Stream stream = new System.IO.MemoryStream(this.endOfGameStatsBytes);
-            using (AMFReader aMFReader = new AMFReader(stream))
+            try
             {
-                try
+                System.IO.FileStream fileStream = new System.IO.FileStream(path, System.IO.FileMode.Create, System.IO.FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fileStream);
+
+
+                System.IO.Stream stream = new System.IO.MemoryStream(this.endOfGameStatsBytes);
+                using (AMFReader aMFReader = new AMFReader(stream))
                 {
-                    ASObject aSObject = (ASObject)aMFReader.ReadAMF3Data();
-                    sw.Write(JsonConvert.SerializeObject(aSObject));
+                    try
+                    {
+                        ASObject aSObject = (ASObject)aMFReader.ReadAMF3Data();
+                        sw.Write(JsonConvert.SerializeObject(aSObject));
+                    }
+                    catch { }
                 }
-                catch { }
+
+
+                sw.Close();
+                fileStream.Close();
             }
-
-
-            sw.Close();
-            fileStream.Close();
+            catch { }
 
         }
 

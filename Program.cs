@@ -16,6 +16,7 @@ namespace Recorder
     { 
         public static void Main(string[] args)
         {
+            Console.Title = "LOL Recorder by Veranus Xia @ www.lolcn.cc";
             Console.WriteLine("欢迎使用本工具 最后修改日期 2016-09-21 by Veranus Xia");
             Console.WriteLine("https://github.com/VeranusXia");
             Console.WriteLine("开启本工具以后,会自动监视所有LOL的观看模式并自动录制");
@@ -62,7 +63,7 @@ namespace Recorder
 
                     Console.WriteLine("Success:" + sender.record.gameId.ToString());
                 }
-                catch (Exception ex)
+                catch 
                 {
 
                 }

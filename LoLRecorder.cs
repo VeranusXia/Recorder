@@ -387,7 +387,6 @@ namespace Recorder
                 {
                     return true;
                 }
-                return false;
             }
             if (IsKeyFrame)
             {
