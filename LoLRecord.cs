@@ -61,14 +61,14 @@ namespace Recorder
             this.gameELOLevel = int.Parse(metaJson["interestScore"].ToString());
             this.gameCreateTime = metaJson["createTime"].ToString().ToCharArray();
             this.allocateChunkAndKeyFrameSpaces();
-        }  
+        }
         private void allocateChunkAndKeyFrameSpaces()
         {
             this.gameKeyFrames = new System.Collections.Generic.Dictionary<int, byte[]>();
             this.gameChunks = new System.Collections.Generic.Dictionary<int, byte[]>();
         }
- 
- 
+
+
         public void setAllChunksContent(System.Collections.Generic.Dictionary<int, byte[]> chunks)
         {
             this.gameChunks = chunks;
@@ -184,7 +184,7 @@ namespace Recorder
                 binaryWriter.Write(current2.Value.Length);
                 binaryWriter.Write(current2.Value);
             }
-             
+
 
             binaryWriter.Close();
             fileStream.Close();
@@ -211,9 +211,10 @@ namespace Recorder
 
             sw.Close();
             fileStream.Close();
+
         }
 
-      
-       
+
+
     }
 }

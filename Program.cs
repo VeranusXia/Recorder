@@ -16,9 +16,14 @@ namespace Recorder
     { 
         public static void Main(string[] args)
         {
+            Console.WriteLine("欢迎使用本工具 最后修改日期 2016-09-21 by Veranus Xia");
+            Console.WriteLine("https://github.com/VeranusXia");
+            Console.WriteLine("开启本工具以后,会自动监视所有LOL的观看模式并自动录制");
+            Console.WriteLine("录制成功以后会在程序目录的Replay目录里找到具体录像文件,可以用相应的Player播放");
             try
             {
                 GameInfo g = new GameInfo();
+                Console.WriteLine("开启监控...");
                 while (true)
                 {
                     g = AnalyzeWhetherSpectatorMode();
